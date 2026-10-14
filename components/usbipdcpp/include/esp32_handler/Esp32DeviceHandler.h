@@ -90,8 +90,8 @@ namespace usbipdcpp
             std::uint32_t original_transfer_buffer_length;
             bool counted_in_concurrent = false;
 
-            uint64_t recv_time;   // 收到网络请求的时间
-            uint64_t submit_time; // USB传输提交的时间
+            uint64_t recv_time = 0;   // 收到网络请求的时间
+            uint64_t submit_time = 0; // USB传输提交的时间
         };
 
         static void transfer_callback(usb_transfer_t *trx);

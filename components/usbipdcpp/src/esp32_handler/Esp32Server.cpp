@@ -1,5 +1,5 @@
 #include "Esp32Server.h"
-static const char *TAG = "esp32_uspipdcpp_server";
+// static const char *TAG = "esp32_uspipdcpp_server"; // 注释掉：与类静态成员重复，被遮蔽，触发 -Wunused-variable 警告
 
 #include <Session.h>
 #include <usb/usb_helpers.h>

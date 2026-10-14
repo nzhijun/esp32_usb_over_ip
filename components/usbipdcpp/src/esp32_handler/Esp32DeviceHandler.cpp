@@ -1,5 +1,5 @@
 #include "Esp32DeviceHandler.h"
-static const char *TAG = "Esp32DeviceHandler";
+// static const char *TAG = "Esp32DeviceHandler"; // 注释掉：与类静态成员重复，被遮蔽，触发 -Wunused-variable 警告
 
 #include "sdkconfig.h"
 #include <esp_log.h>

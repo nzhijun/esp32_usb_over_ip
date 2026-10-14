@@ -85,6 +85,8 @@ void setup()
         gpio_config_t io_conf = {
             .pin_bit_mask = (1ULL << LED_PIN), // 选择要配置的引脚
             .mode = GPIO_MODE_OUTPUT,          // 设置为输出模式
+            .pull_up_en = GPIO_PULLUP_DISABLE,   // 不使用上拉
+            .pull_down_en = GPIO_PULLDOWN_DISABLE, // 不使用下拉
             .intr_type = GPIO_INTR_DISABLE,    // 禁止中断
         };
         gpio_config(&io_conf);

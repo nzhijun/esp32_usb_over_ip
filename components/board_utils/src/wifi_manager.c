@@ -90,8 +90,8 @@ static void wifi_start_ap(void)
         },
     };
 
-    strncpy((char *)wifi_config.ap.ssid, CONFIG_AP_SSID, sizeof(wifi_config.ap.ssid));
-    strncpy((char *)wifi_config.ap.password, CONFIG_AP_PASS, sizeof(wifi_config.ap.password));
+    strlcpy((char *)wifi_config.ap.ssid, CONFIG_AP_SSID, sizeof(wifi_config.ap.ssid));
+    strlcpy((char *)wifi_config.ap.password, CONFIG_AP_PASS, sizeof(wifi_config.ap.password));
 
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_AP, &wifi_config));
 
@@ -322,11 +322,11 @@ static bool wifi_try_connect_saved(void)
 
         // 配置WiFi连接参数
         wifi_config_t wifi_config = {0};
-        strncpy((char *)wifi_config.sta.ssid, saved_ssid, sizeof(wifi_config.sta.ssid) - 1);
+        strlcpy((char *)wifi_config.sta.ssid, saved_ssid, sizeof(wifi_config.sta.ssid));
 
         if (strlen(saved_pass) > 0)
         {
-            strncpy((char *)wifi_config.sta.password, saved_pass, sizeof(wifi_config.sta.password) - 1);
+            strlcpy((char *)wifi_config.sta.password, saved_pass, sizeof(wifi_config.sta.password));
             wifi_config.sta.threshold.authmode = WIFI_AUTH_WPA2_PSK;
         }
         else
@@ -417,9 +417,7 @@ static esp_err_t web_root_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
 
-    strcpy(html_response, ROOT_HTML_1);
-    strcat(html_response, s_wifi_list_buffer);
-    strcat(html_response, ROOT_HTML_2);
+    snprintf(html_response, total_len, "%s%s%s", ROOT_HTML_1, s_wifi_list_buffer, ROOT_HTML_2);
 
     httpd_resp_set_type(req, "text/html");
     esp_err_t ret = httpd_resp_send(req, html_response, strlen(html_response));
@@ -759,7 +757,7 @@ void wifi_get_status(wifi_status_t *status)
         wifi_ap_record_t ap_info;
         if (esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK)
         {
-            strncpy(status->ssid, (char *)ap_info.ssid, sizeof(status->ssid) - 1);
+            strlcpy(status->ssid, (char *)ap_info.ssid, sizeof(status->ssid));
             status->rssi = ap_info.rssi;
         }
 

@@ -3,7 +3,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 static const char *TAG = "LED";
-static led_handle_t *led_handle = NULL;
+// static led_handle_t *led_handle = NULL; // 注释掉：全局变量未使用，触发 -Wunused-variable 警告
 // 初始化LED
 led_handle_t *led_init(const led_config_t *config)
 {
